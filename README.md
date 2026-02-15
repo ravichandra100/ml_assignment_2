@@ -1,4 +1,4 @@
-# ML Assignment 2: Binary Classification
+# ML Assignment 2: Implement multi classification models
 
 ## Problem Statement
 
