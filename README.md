@@ -7,6 +7,31 @@ The objective of this project is to develop a **binary classification system** t
 The problem addresses a real-world business scenario where banks need to identify potential customers likely to subscribe to term deposits, enabling targeted marketing efforts and improved resource allocation.
 
 ---
+## Model Performance Comparison
+
+### Performance Metrics Table
+
+| ML Model Name | Accuracy | AUC | Precision | Recall | F1 Score | MCC |
+|---------------|----------|-----|-----------|--------|----------|-----|
+| Logistic Regression | 0.9112 | 0.9362 | 0.6688 | 0.4196 | 0.5157 | 0.4851 |
+| Decision Tree | 0.9602 | 0.9086 | 0.8119 | 0.8420 | 0.8267 | 0.8044 |
+| KNN | 0.9168 | 0.9300 | 0.7217 | 0.4252 | 0.5351 | 0.5136 |
+| Naive Bayes | 0.8871 | 0.8418 | 0.2222 | 0.0009 | 0.0017 | 0.0072 |
+| Random Forest (Ensemble) | 0.9803 | 0.9938 | 0.9463 | 0.8744 | 0.9089 | 0.8988 |
+| XGBoost (Ensemble) | 0.8813 | 0.9397 | 0.4841 | 0.8157 | 0.6076 | 0.5687 |
+
+### Model Performance Observations
+
+| ML Model Name | Observation about Model Performance |
+|---------------|-------------------------------------|
+| **Logistic Regression** | Demonstrates good overall accuracy (91.12%) and excellent AUC (0.9362), indicating strong discriminative ability. However, the recall is low (0.4196), meaning it misses ~58% of actual positive cases (term deposit subscribers). The model is conservative in positive predictions (high precision 0.6688). This linear model provides reasonable baseline performance but struggles with the non-linear decision boundary of this classification problem. |
+| **Decision Tree** | Strong performer with 96.02% accuracy and balanced precision-recall (0.8119 / 0.8420). The F1 score of 0.8267 indicates good balance between precision and recall. Decision trees effectively capture the non-linear relationships in the data. However, the AUC (0.9086) is slightly lower than some other models, and the model may overfit on training data due to its high complexity without pruning. |
+| **KNN** | Achieves 91.68% accuracy with high AUC (0.9300), showing good class separation ability. However, similar to Logistic Regression, it has low recall (0.4252) and moderate F1 score (0.5351), indicating it's conservative in positive predictions. As a distance-based lazy learner, KNN is sensitive to feature scaling but benefits from StandardScaler preprocessing. Memory-intensive for larger datasets. |
+| **Naive Bayes** | Poor performance with extremely low recall (0.0009) and F1 score (0.0017), despite moderate accuracy (88.71%). This indicates the model almost never predicts positive cases. The assumption of feature independence in Gaussian Naive Bayes is violated in this dataset with correlated features. The MCC (0.0072) is near zero, meaning the model provides little better than random classification for the minority class. Not recommended for this problem. |
+| **Random Forest (Ensemble) | **BEST OVERALL PERFORMER** with the highest accuracy (98.03%) and AUC (0.9938). Excellent balanced performance: precision 0.9463, recall 0.8744, F1 0.9089, and MCC 0.8988. The ensemble method effectively reduces overfitting while capturing complex non-linear relationships. Multiple decision trees voting reduces variance. This model best identifies both negative and positive cases with minimal false positives and false negatives. Recommended for production deployment. |
+| **XGBoost (Ensemble)** | Gradient boosting ensemble with strong AUC (0.9397) and high recall (0.8157), effectively identifying most positive cases. However, precision is lower (0.4841), resulting in higher false positive rate. Accuracy is lower (88.13%) than Random Forest. The F1 score (0.6076) shows good but not excellent balance. XGBoost excels at handling complex patterns but in this case is outperformed by Random Forest. Still a strong alternative model. |
+
+---
 
 ## Dataset Description
 
@@ -81,32 +106,6 @@ All models are comprehensively evaluated using the following 6 metrics:
    - Range: [-1, 1], where 1 = perfect, 0 = random, -1 = worst
 
 **Legend:** TP = True Positives, TN = True Negatives, FP = False Positives, FN = False Negatives
-
----
-
-## Model Performance Comparison
-
-### Performance Metrics Table
-
-| ML Model Name | Accuracy | AUC | Precision | Recall | F1 Score | MCC |
-|---------------|----------|-----|-----------|--------|----------|-----|
-| Logistic Regression | 0.9112 | 0.9362 | 0.6688 | 0.4196 | 0.5157 | 0.4851 |
-| Decision Tree | 0.9602 | 0.9086 | 0.8119 | 0.8420 | 0.8267 | 0.8044 |
-| KNN | 0.9168 | 0.9300 | 0.7217 | 0.4252 | 0.5351 | 0.5136 |
-| Naive Bayes | 0.8871 | 0.8418 | 0.2222 | 0.0009 | 0.0017 | 0.0072 |
-| Random Forest (Ensemble) | 0.9803 | 0.9938 | 0.9463 | 0.8744 | 0.9089 | 0.8988 |
-| XGBoost (Ensemble) | 0.8813 | 0.9397 | 0.4841 | 0.8157 | 0.6076 | 0.5687 |
-
-### Model Performance Observations
-
-| ML Model Name | Observation about Model Performance |
-|---------------|-------------------------------------|
-| **Logistic Regression** | Demonstrates good overall accuracy (91.12%) and excellent AUC (0.9362), indicating strong discriminative ability. However, the recall is low (0.4196), meaning it misses ~58% of actual positive cases (term deposit subscribers). The model is conservative in positive predictions (high precision 0.6688). This linear model provides reasonable baseline performance but struggles with the non-linear decision boundary of this classification problem. |
-| **Decision Tree** | Strong performer with 96.02% accuracy and balanced precision-recall (0.8119 / 0.8420). The F1 score of 0.8267 indicates good balance between precision and recall. Decision trees effectively capture the non-linear relationships in the data. However, the AUC (0.9086) is slightly lower than some other models, and the model may overfit on training data due to its high complexity without pruning. |
-| **KNN** | Achieves 91.68% accuracy with high AUC (0.9300), showing good class separation ability. However, similar to Logistic Regression, it has low recall (0.4252) and moderate F1 score (0.5351), indicating it's conservative in positive predictions. As a distance-based lazy learner, KNN is sensitive to feature scaling but benefits from StandardScaler preprocessing. Memory-intensive for larger datasets. |
-| **Naive Bayes** | Poor performance with extremely low recall (0.0009) and F1 score (0.0017), despite moderate accuracy (88.71%). This indicates the model almost never predicts positive cases. The assumption of feature independence in Gaussian Naive Bayes is violated in this dataset with correlated features. The MCC (0.0072) is near zero, meaning the model provides little better than random classification for the minority class. Not recommended for this problem. |
-| **Random Forest (Ensemble) | **BEST OVERALL PERFORMER** with the highest accuracy (98.03%) and AUC (0.9938). Excellent balanced performance: precision 0.9463, recall 0.8744, F1 0.9089, and MCC 0.8988. The ensemble method effectively reduces overfitting while capturing complex non-linear relationships. Multiple decision trees voting reduces variance. This model best identifies both negative and positive cases with minimal false positives and false negatives. Recommended for production deployment. |
-| **XGBoost (Ensemble)** | Gradient boosting ensemble with strong AUC (0.9397) and high recall (0.8157), effectively identifying most positive cases. However, precision is lower (0.4841), resulting in higher false positive rate. Accuracy is lower (88.13%) than Random Forest. The F1 score (0.6076) shows good but not excellent balance. XGBoost excels at handling complex patterns but in this case is outperformed by Random Forest. Still a strong alternative model. |
 
 ---
 
