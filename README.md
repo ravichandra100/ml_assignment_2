@@ -15,7 +15,7 @@ Multiple machine learning classification models are implemented and evaluated to
 
 ---
 
-## b. Dataset Description  [1 Mark]
+## b. Dataset Description
 
 The dataset used is the **Bank Marketing Dataset** from the UCI Machine Learning Repository.
 
@@ -58,7 +58,7 @@ The dataset used is the **Bank Marketing Dataset** from the UCI Machine Learning
 
 ---
 
-## c. Models Used  [6 Marks]
+## c. Models Used 
 
 Six classification models were implemented and evaluated using an 80/20 train-test split.
 
@@ -85,7 +85,7 @@ Six classification models were implemented and evaluated using an 80/20 train-te
 
 ---
 
-## d. Observations on Model Performance  [3 Marks]
+## d. Observations on Model Performance
 
 | ML Model Name | Observation about Model Performance |
 |--------------|-------------------------------------|
@@ -98,6 +98,6 @@ Six classification models were implemented and evaluated using an 80/20 train-te
 
 ---
 
-## Final Conclusion
+## Conclusion
 
 Among all evaluated models, **Random Forest (Ensemble)** demonstrates the best overall performance across all evaluation metrics and is the most suitable model for predicting term deposit subscription in this dataset.
